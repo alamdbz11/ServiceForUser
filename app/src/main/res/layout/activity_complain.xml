@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:background="@color/white"
+    android:gravity="center"
+    tools:context=".ComplainActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dm_20"
+        android:layout_marginRight="@dimen/dm_20"
+        android:backgroundTint="@color/app_bg"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/bt_shape_3"
+
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+
+                    android:src="@drawable/ic_govt_logo2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:textSize="@dimen/dm_20"
+                        android:textColor="@color/white"
+                        android:text="@string/title_1" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal" android:textSize="@dimen/dm_17"
+                        android:text="@string/title_2" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dm_10"
+                android:orientation="vertical"
+                android:visibility="visible">
+                <ScrollView
+                    android:id="@+id/scrollViewParent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dm_10"
+                        android:background="@color/app_bg"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dm_10"
+                            android:gravity="center_horizontal"
+                            android:padding="@dimen/dm_5"
+                            android:text="@string/type_of_complaint"
+                            android:textSize="@dimen/dm_17" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dm_40"
+                            android:layout_marginTop="@dimen/dm_5"
+                            android:background="@color/white">
+
+                            <Spinner
+                                android:id="@+id/spnStatus"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:entries="@array/type_of_complaint" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dm_10"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dm_10"
+                                android:layout_weight="6"
+                                android:gravity="center_horizontal"
+                                android:padding="@dimen/dm_5"
+                                android:text="@string/complaint_details"
+                                android:textSize="@dimen/dm_17" />
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:onClick="openVoice"
+                                android:src="@drawable/ic_keyboard_voice_black_24dp" />
+                        </LinearLayout>
+
+
+                        <EditText
+                            android:id="@+id/edtDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dm_120"
+                            android:layout_marginTop="@dimen/dm_5"
+                            android:background="@color/white"
+                            android:gravity="top|left"
+                            android:hint="@string/type_description"
+                            android:maxLines="10"
+                            android:padding="@dimen/dm_10" />
+
+
+                        <ImageView
+                            android:id="@+id/imgCapture"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dm_250"
+                            android:layout_marginTop="@dimen/dm_10"
+                            android:scaleType="fitXY"
+                            android:visibility="gone" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dm_10"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/buttonChoose"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:onClick="btnChooseFile"
+                                android:padding="@dimen/dm_5"
+                                android:text="@string/choose_photo"
+                                android:textSize="@dimen/dm_17" />
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dm_30">
+
+                            <Button
+                                android:id="@+id/submitTicket"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/button_height"
+                                android:background="@drawable/bt_shape_4"
+                                android:gravity="center"
+                                android:padding="@dimen/dm_10"
+                                android:text="@string/complaint"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/dm_17" />
+
+                            <ImageView
+                                android:id="@+id/imageViewLoading"
+                                android:layout_width="@dimen/dm_30"
+                                android:layout_height="@dimen/dm_30"
+                                android:layout_centerInParent="true"
+
+                                android:visibility="visible" />
+                        </RelativeLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dm_20"/>
+
+                    </LinearLayout>
+                </ScrollView>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

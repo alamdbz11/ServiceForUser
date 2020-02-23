@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">ServiceForUser</string>
+    <!-- Close Ticket-->
+    <string name="close_ticket">নিশ্চিতকরণ !</string>
+    <string name="close_ticket_mgs">Do you want to close this ticket?</string>
+
+    <string-array name="type_of_complaint">
+        <item>বাল্যবিবাহ</item>
+        <item>মাদক সেবন</item>
+        <item>ইভটিজিং  </item>
+    </string-array>
+
+    <string-array name="unions">
+        <item>০১ নং কালির বাজার ইউনিয়ন </item>
+        <item>০২ নং দূর্গাপুর (দক্ষিণ) ইউনিয়ন</item>
+        <item>০৩ নং দূর্গাপুর (উত্তর) ইউনিয়ন</item>
+        <item>০৪ নং আমড়াতলী ইউনিয়ন</item>
+        <item>০৫ নং পাঁচথুবী ইউনিয়ন</item>
+        <item>০৬ নং জগন্নাথপুর ইউনিয়ন</item>
+    </string-array>
+    <!-- Assign Ticket -->
+    <string name="title_1">কুমিল্লা সদর উপজেলা</string>
+    <string name="title_2">কুমিল্লা সদর উপজেলা</string>
+    <string name="assign_to">দায়িত্ব অর্পণ করুন </string>
+    <string name="ward"> ওয়ার্ড </string>
+    <string name="union">ইউনিয়ন</string>
+    <string name="complaint0">অভিযোগ</string>
+    <string name="complaint">অভিযোগ করুন</string>
+    <string name="sign_in">সাইন ইন করুন</string>
+    <string name="name">অভিযোগ কারীর নাম </string>
+    <string name="phone_no">অভিযোগ কারীর ফোন নম্বর  </string>
+    <string name="address">অভিযোগ কারীর ঠিকানা  </string>
+    <string name="type_your_name">আপনার নাম লিখুন </string>
+    <string name="type_of_complaint">অভিযোগের ধরণ  পছন্দ করুন  </string>
+    <string name="complaint_details">অভিযোগের বিস্তারিত লিখুন  </string>
+    <string name="type_description">এখান থেকে শুরু করুন </string>
+    <string name="choose_photo">ছবি তুলুন </string>
+    <string name="send_mgs">ধন্যবাদ,আপনার অভিযোগ টি পাঠানো হয়েছে </string>
+    <string name="pendings">অমীমাংসিত</string>
+    <string name="complaint_no">অভিযোগ নম্বর :</string>
+    <string name="ticket_list">অভিযোগের তালিকা </string>
+    <string name="date">তারিখ :</string>
+    <string name="complaint_detail">অভিযোগের বিস্তারিত </string>
+    <string name="cancel_complaint_mgs">আপনি কি এই অভিযোগটি বাতিল চান ?</string>
+    <string name="success_mgs">আপনার কাজটি সম্পূর্ণ হয়েছে </string>
+</resources>

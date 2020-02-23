@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="home_icon_height">150dp</dimen>
+    <dimen name="home_icon_size">50dp</dimen>
+    <dimen name="dm_5">5dp</dimen>
+    <dimen name="dm_10">10dp</dimen>
+    <dimen name="dm_15">15dp</dimen>
+    <dimen name="dm_17">17dp</dimen>
+    <dimen name="dm_20">20dp</dimen>
+    <dimen name="dm_30">30dp</dimen>
+    <dimen name="dm_40">40dp</dimen>
+    <dimen name="dm_48">48dp</dimen>
+    <dimen name="dm_120">120dp</dimen>
+    <dimen name="dm_200">200dp</dimen>
+    <dimen name="dm_250">250dp</dimen>
+    <dimen name="dm_80">80dp</dimen>
+    <dimen name="dm_100">100dp</dimen>
+    <dimen name="dm_300">300dp</dimen>
+    <dimen name="button_height">48dp</dimen>
+</resources>
