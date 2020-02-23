@@ -74,7 +74,7 @@
                 android:visibility="visible">
 
                 <EditText
-                    android:id="@+id/edtEmail"
+                    android:id="@+id/edtComplainerName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
@@ -85,16 +85,14 @@
                     android:inputType="textPersonName"
                     android:layoutDirection="ltr"
                     android:padding="@dimen/dm_15"
-
                     android:singleLine="true"
                     android:text=""
-
                     android:textSize="@dimen/dm_17"
                     android:visibility="visible" />
 
 
                 <EditText
-                    android:id="@+id/edtPassword"
+                    android:id="@+id/edtComplainerAddress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
@@ -107,7 +105,6 @@
                     android:padding="@dimen/dm_15"
                     android:singleLine="true"
                     android:text=""
-
                     android:textSize="@dimen/dm_17"
                     android:visibility="visible" />
 

@@ -1,61 +1,48 @@
 package com.alam.serviceforuser;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
+import android.Manifest;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
+import android.util.Patterns;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.provider.Settings;
-import android.telephony.SubscriptionInfo;
-import android.telephony.SubscriptionManager;
-import android.telephony.TelephonyManager;
-import android.util.Log;
-import android.util.Patterns;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
+import com.alam.serviceforuser.data.DataPreference;
 
-import com.google.android.material.snackbar.Snackbar;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.GET_ACCOUNTS;
-import static android.Manifest.permission.READ_PHONE_NUMBERS;
 import static android.Manifest.permission.READ_PHONE_STATE;
 
 public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_CODE = 200;
     private static final boolean TODO = true;
     private AppCompatActivity mActivity;
-    ArrayList<String> SampleArrayList;
-    ArrayAdapter<String> arrayAdapter;
     Pattern pattern;
     Account[] account;
-    String[] StringArray;
+    private EditText edtComplainerName, edtComplainerAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        uiInitialize();
 
-        mActivity = this;
-        SampleArrayList = new ArrayList<String>();
-        pattern = Patterns.EMAIL_ADDRESS;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (permissionAlreadyGranted()) {
 
@@ -68,6 +55,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void uiInitialize() {
+        mActivity = this;
+        pattern = Patterns.EMAIL_ADDRESS;
+
+        edtComplainerName = findViewById(R.id.edtComplainerName);
+        edtComplainerAddress = findViewById(R.id.edtComplainerAddress);
+    }
+
     public void isSimAvailable() {
         SubscriptionManager mSubscriptionManager = SubscriptionManager.from(getBaseContext());
         if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
@@ -75,10 +70,14 @@ public class MainActivity extends AppCompatActivity {
         }
         List<SubscriptionInfo> subscriptions = mSubscriptionManager.getActiveSubscriptionInfoList();
 
-
-        for (SubscriptionInfo subscriptionInfo : subscriptions) {
-            Log.i("SIMNUMBER", subscriptionInfo.getNumber());
+        if (subscriptions.size() == 1) {
+            new DataPreference(mActivity).setSimOneNumber(subscriptions.get(0).getNumber());
         }
+        if (subscriptions.size() == 2) {
+            new DataPreference(mActivity).setSimOneNumber(subscriptions.get(0).getNumber());
+            new DataPreference(mActivity).setSimTwoNumber(subscriptions.get(1).getNumber());
+        }
+
     }
 
     private boolean permissionAlreadyGranted() {
@@ -187,10 +186,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         for (Account TempAccount : account) {
-
             if (pattern.matcher(TempAccount.name).matches()) {
-                Log.e("SIMNUMBER", TempAccount.name);
-                SampleArrayList.add(TempAccount.name);
+                new DataPreference(mActivity).setEmail(TempAccount.name);
             }
         }
 
