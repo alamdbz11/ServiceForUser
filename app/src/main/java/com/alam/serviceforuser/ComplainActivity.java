@@ -1,12 +1,15 @@
 package com.alam.serviceforuser;
 
 import android.Manifest;
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.speech.RecognizerIntent;
 import android.util.Base64;
 import android.util.Log;
@@ -17,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alam.serviceforuser.data.DataPreference;
@@ -32,11 +36,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,12 +50,17 @@ public class ComplainActivity extends AppCompatActivity {
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     private static final int CAMERA_REQUEST_CODE = 101;
     private static final int REQ_CODE_SPEECH_INPUT = 102;
-    private String photo = "",ComplainType="";
+    private String ComplainType="";
     private ImageView imgCapture,imageViewLoading;
-    private Bitmap theImage;
     private AppCompatActivity mContext;
     private Spinner spnProblemType;
     private EditText edtDescription;
+
+    private int GALLERY = 1, CAMERACODE = 2, SHARECODE = 3;
+    private Bitmap FixBitmap;
+    byte[] byteArray;
+    String ConvertImage;
+    ByteArrayOutputStream byteArrayOutputStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +71,7 @@ public class ComplainActivity extends AppCompatActivity {
 
     private void uiInitialize() {
         mContext = this;
+        byteArrayOutputStream = new ByteArrayOutputStream();
         locationTrack = new LocationTrack(mContext);
         spnProblemType = findViewById(R.id.spnProblemType);
         edtDescription = findViewById(R.id.edtDescription);
@@ -82,7 +92,7 @@ public class ComplainActivity extends AppCompatActivity {
     }
 
     public void openVoice(View view) {
-        askSpeechInput("hi");
+        askSpeechInput("");
 
     }
 
@@ -100,34 +110,88 @@ public class ComplainActivity extends AppCompatActivity {
         }
     }
 
+    void convrtImage() {
+        FixBitmap.compress(Bitmap.CompressFormat.JPEG, 40, byteArrayOutputStream);
+        byteArray = byteArrayOutputStream.toByteArray();
+        ConvertImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
+    }
+
+
+    public void choosePhotoFromGallary() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        startActivityForResult(galleryIntent, GALLERY);
+    }
+
+    private void takePhotoFromCamera() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, CAMERACODE);
+    }
+
+
     public void btnChooseFile(View view) {
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
         } else {
-            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE);
+            showPictureDialog();
         }
 
     }
 
-    private String getEncodedString(Bitmap bitmap) {
 
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
-        byte[] imageArr = os.toByteArray();
-        return Base64.encodeToString(imageArr, Base64.URL_SAFE);
-
+    private void showPictureDialog() {
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {
+                "Photo Gallery",
+                "Camera"};
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                choosePhotoFromGallary();
+                                break;
+                            case 1:
+                                takePhotoFromCamera();
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
     }
 
+
     @Override
-    protected void onActivityResult(int req, int result, Intent data) {
-        super.onActivityResult(req, result, data);
-        if (req == CAMERA_REQUEST_CODE && result == Activity.RESULT_OK) {
-            theImage = (Bitmap) data.getExtras().get("data");
-            imgCapture.setImageBitmap(theImage);
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == this.RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == GALLERY) {
+            if (data != null) {
+                Uri contentURI = data.getData();
+                try {
+                    FixBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+                    imgCapture.setImageBitmap(FixBitmap);
+                    imgCapture.setVisibility(View.VISIBLE);
+                    convrtImage();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(mContext, "Failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        } else if (requestCode == CAMERACODE) {
+
+            FixBitmap = (Bitmap) data.getExtras().get("data");
+            imgCapture.setImageBitmap(FixBitmap);
             imgCapture.setVisibility(View.VISIBLE);
-            photo = getEncodedString(theImage);
-        }else if (req == REQ_CODE_SPEECH_INPUT) {
+            convrtImage();
+        } else if (requestCode == REQ_CODE_SPEECH_INPUT) {
             if (null != data) {
                 ArrayList<String> res = data
                         .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
@@ -137,6 +201,7 @@ public class ComplainActivity extends AppCompatActivity {
             }
         }
     }
+
 
     @Override
     protected void onResume() {
@@ -188,12 +253,12 @@ public class ComplainActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             // JSONObject jsonObjectData = jsonObject.getJSONObject("data");
-                            JSONArray contacts = jsonObject.getJSONArray("data");
-                            JSONObject c = contacts.getJSONObject(0);
-                            String Success = c.getString("Success");
-                            if (Success.equals("1")) {
-
-                               // Toast.makeText(mContext, getResources().getString(R.string.mgs_reg_success), Toast.LENGTH_SHORT).show();
+                            // JSONArray contacts = jsonObject.getJSONArray("data");
+                            //JSONObject c = contacts.getJSONObject(0);
+                            String message = jsonObject.getString("message");
+                            if (message.equals("Success")) {
+                                clear();
+                                Toast.makeText(mContext, getResources().getString(R.string.success_mgs0), Toast.LENGTH_SHORT).show();
                                 finish();
                             }
 
@@ -224,7 +289,7 @@ public class ComplainActivity extends AppCompatActivity {
                 params.put("Number2", new DataPreference(mContext).getSimTwoNumber());
                 params.put("DeviceId", new DataPreference(mContext).getToken());
                 params.put("Complaint", edtDescription.getText().toString());
-                params.put("ImageData", photo);
+                params.put("ImageData", ConvertImage);
                 params.put("Latitude", new DataPreference(mContext).getLatitude());
                 params.put("Longitude", new DataPreference(mContext).getLongitude());
                 params.put("ComplaintAddress", AddressLocation.getCompleteAddressString(mContext,Double.parseDouble(new DataPreference(mContext).getLatitude()),Double.parseDouble(new DataPreference(mContext).getLongitude())));
@@ -236,5 +301,19 @@ public class ComplainActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
         requestQueue.add(stringRequest);
+    }
+
+    void clear() {
+        edtDescription.setText("");
+        imgCapture.setVisibility(View.GONE);
+    }
+
+    public void openHistory(View view) {
+        Intent intent = new Intent(this, HistoryActivity.class);
+        startActivity(intent);
+    }
+
+    public void back(View view) {
+       finish();
     }
 }

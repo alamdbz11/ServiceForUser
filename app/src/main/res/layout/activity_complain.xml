@@ -6,31 +6,37 @@
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
     android:background="@color/white"
-
     android:orientation="vertical"
     tools:context=".ComplainActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:background="@color/green">
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+        <LinearLayout
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true">
 
-            android:src="@drawable/ic_govt_logo2" />
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:onClick="back"
+                android:src="@drawable/ic_govt_logo2" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/start"
+            android:layout_toLeftOf="@+id/right"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="@string/title_1"
@@ -38,7 +44,7 @@
                 android:textSize="@dimen/dm_20" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="@string/title_2"
@@ -46,7 +52,23 @@
                 android:textSize="@dimen/dm_17" />
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/right"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:layout_alignParentEnd="true">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:onClick="openHistory"
+                android:layout_gravity="center"
+                android:src="@android:drawable/ic_menu_recent_history" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scrollViewParent"
@@ -186,8 +208,9 @@
                             android:layout_width="@dimen/dm_30"
                             android:layout_height="@dimen/dm_30"
                             android:layout_centerInParent="true"
+                            android:src="@drawable/loading"
+                            android:visibility="gone" />
 
-                            android:visibility="visible" />
                     </RelativeLayout>
 
                 </LinearLayout>

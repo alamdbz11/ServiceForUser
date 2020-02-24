@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.alam.serviceforuser.data.DataPreference;
+import com.alam.serviceforuser.utils.ExistApplication;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -194,10 +195,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btnLogin(View view) {
+        if (!edtComplainerName.getText().toString().equals("")) {
+            new DataPreference(mActivity).setName(edtComplainerName.getText().toString());
+            new DataPreference(mActivity).setCurrentAddress(edtComplainerAddress.getText().toString());
+            Intent intent = new Intent(this, ComplainActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(mActivity,getResources().getString(R.string.enter_your_name),Toast.LENGTH_LONG).show();
+        }
+    }
 
-        new DataPreference(mActivity).setName(edtComplainerName.getText().toString());
-        new DataPreference(mActivity).setCurrentAddress(edtComplainerAddress.getText().toString());
-        Intent intent = new Intent(this, ComplainActivity.class);
-        startActivity(intent);
+    @Override
+    public void onBackPressed() {
+
+        new ExistApplication(mActivity);
     }
 }

@@ -25,32 +25,28 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/bt_shape_3"
-
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <ImageView android:id="@+id/govtLogo"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-
                     android:src="@drawable/ic_govt_logo2" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-
-                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                   android:layout_centerInParent="true"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:textSize="@dimen/dm_20"
+                        android:textSize="@dimen/dm_17"
                         android:padding="@dimen/dm_5"
-                        android:layout_marginRight="@dimen/dm_10"
                         android:textColor="@color/white"
                         android:text="@string/title_1" />
 
@@ -59,12 +55,17 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:gravity="center_horizontal"
-                        android:textSize="@dimen/dm_17"
-                        android:layout_marginRight="@dimen/dm_10"
+                        android:textSize="@dimen/dm_15"
                         android:text="@string/title_2" />
                 </LinearLayout>
+                <ImageView android:id="@+id/logoRight"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:visibility="invisible"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_govt_logo2" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -122,7 +123,7 @@
                         android:gravity="center"
                         android:onClick="btnLogin"
                         android:padding="@dimen/dm_15"
-                        android:text="Submit"
+                        android:text="@string/next"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="@dimen/dm_17" />

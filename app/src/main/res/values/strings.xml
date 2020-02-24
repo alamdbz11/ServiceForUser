@@ -1,26 +1,22 @@
 <resources>
     <string name="app_name">ServiceForUser</string>
     <!-- Close Ticket-->
+    <string name="enter_your_name">আপনার নাম লিখুন</string>
+    <string name="next">পরবর্তী</string>
     <string name="close_ticket">নিশ্চিতকরণ !</string>
+    <string name="success_mgs0">আপনাকে ধন্যবাদ</string>
     <string name="close_ticket_mgs">Do you want to close this ticket?</string>
+    <string name="close_application">সতর্কীকরণ</string>
+    <string name="sign_out_message">Are you sure you want to Sign Out?</string>
+    <string name="exit_from_application">আপনি কি এই অ্যাপ্লিকেশনটি বন্ধ করতে চান?</string>
 
-    <string-array name="type_of_complaint">
-        <item>বাল্যবিবাহ</item>
-        <item>মাদক সেবন</item>
-        <item>ইভটিজিং  </item>
-    </string-array>
-
-    <string-array name="unions">
-        <item>০১ নং কালির বাজার ইউনিয়ন </item>
-        <item>০২ নং দূর্গাপুর (দক্ষিণ) ইউনিয়ন</item>
-        <item>০৩ নং দূর্গাপুর (উত্তর) ইউনিয়ন</item>
-        <item>০৪ নং আমড়াতলী ইউনিয়ন</item>
-        <item>০৫ নং পাঁচথুবী ইউনিয়ন</item>
-        <item>০৬ নং জগন্নাথপুর ইউনিয়ন</item>
-    </string-array>
+    <string name="you_have_no_internet_connection">You have no internet connection, Please try again </string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="yes">হ্যাঁ</string>
+    <string name="no">না</string>
+    <string name="title_1">উপজেলা প্রশাসন</string>
+    <string name="title_2">আদর্শ সদর উপজেলা,কুমিল্লা </string>
     <!-- Assign Ticket -->
-    <string name="title_1">কুমিল্লা সদর উপজেলা</string>
-    <string name="title_2">কুমিল্লা সদর উপজেলা</string>
     <string name="assign_to">দায়িত্ব অর্পণ করুন </string>
     <string name="ward"> ওয়ার্ড </string>
     <string name="union">ইউনিয়ন</string>
@@ -43,4 +39,17 @@
     <string name="complaint_detail">অভিযোগের বিস্তারিত </string>
     <string name="cancel_complaint_mgs">আপনি কি এই অভিযোগটি বাতিল চান ?</string>
     <string name="success_mgs">আপনার কাজটি সম্পূর্ণ হয়েছে </string>
+    <string-array name="type_of_complaint">
+        <item>বাল্যবিবাহ</item>
+        <item>মাদক সেবন</item>
+        <item>ইভটিজিং  </item>
+    </string-array>
+    <string-array name="unions">
+        <item>০১ নং কালির বাজার ইউনিয়ন </item>
+        <item>০২ নং দূর্গাপুর (দক্ষিণ) ইউনিয়ন</item>
+        <item>০৩ নং দূর্গাপুর (উত্তর) ইউনিয়ন</item>
+        <item>০৪ নং আমড়াতলী ইউনিয়ন</item>
+        <item>০৫ নং পাঁচথুবী ইউনিয়ন</item>
+        <item>০৬ নং জগন্নাথপুর ইউনিয়ন</item>
+    </string-array>
 </resources>
