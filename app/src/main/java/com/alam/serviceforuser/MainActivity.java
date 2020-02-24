@@ -194,6 +194,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btnLogin(View view) {
+
+        new DataPreference(mActivity).setName(edtComplainerName.getText().toString());
+        new DataPreference(mActivity).setCurrentAddress(edtComplainerAddress.getText().toString());
         Intent intent = new Intent(this, ComplainActivity.class);
         startActivity(intent);
     }
