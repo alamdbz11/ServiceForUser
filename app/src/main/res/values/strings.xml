@@ -15,7 +15,7 @@
     <string name="yes">হ্যাঁ</string>
     <string name="no">না</string>
     <string name="title_1">উপজেলা প্রশাসন</string>
-    <string name="title_2">আদর্শ সদর উপজেলা,কুমিল্লা </string>
+    <string name="title_2">আদর্শ সদর উপজেলা </string>
     <!-- Assign Ticket -->
     <string name="assign_to">দায়িত্ব অর্পণ করুন </string>
     <string name="ward"> ওয়ার্ড </string>
@@ -30,15 +30,19 @@
     <string name="type_of_complaint">অভিযোগের ধরণ  পছন্দ করুন  </string>
     <string name="complaint_details">অভিযোগের বিস্তারিত লিখুন  </string>
     <string name="type_description">এখান থেকে শুরু করুন </string>
-    <string name="choose_photo">ছবি তুলুন </string>
+    <string name="choose_photo">ফটো-১</string>
+    <string name="choose_photo2">ফটো-২</string>
+    <string name="choose_photo3">ফটো-৩</string>
     <string name="send_mgs">ধন্যবাদ,আপনার অভিযোগ টি পাঠানো হয়েছে </string>
     <string name="pendings">অমীমাংসিত</string>
     <string name="complaint_no">অভিযোগ নম্বর :</string>
     <string name="ticket_list">অভিযোগের তালিকা </string>
     <string name="date">তারিখ :</string>
+    <string name="type_of_complaint_label">অভিযোগের ধরণ </string>
     <string name="complaint_detail">অভিযোগের বিস্তারিত </string>
     <string name="cancel_complaint_mgs">আপনি কি এই অভিযোগটি বাতিল চান ?</string>
     <string name="success_mgs">আপনার কাজটি সম্পূর্ণ হয়েছে </string>
+    <string name="complaint_details_title">অভিযোগের বিস্তারিত বর্ণনা </string>
     <string-array name="type_of_complaint">
         <item>বাল্যবিবাহ</item>
         <item>মাদক সেবন</item>

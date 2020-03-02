@@ -29,9 +29,11 @@ import com.alam.serviceforuser.services.AddressLocation;
 import com.alam.serviceforuser.services.LocationTrack;
 import com.alam.serviceforuser.utils.Loading;
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -48,10 +50,10 @@ import java.util.Map;
 public class ComplainActivity extends AppCompatActivity {
     private LocationTrack locationTrack;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
-    private static final int CAMERA_REQUEST_CODE = 101;
+    private static int IMAGE_CODE = 10;
     private static final int REQ_CODE_SPEECH_INPUT = 102;
     private String ComplainType="";
-    private ImageView imgCapture,imageViewLoading;
+    private ImageView imgCapture, imgCapture2, imgCapture3, imageViewLoading;
     private AppCompatActivity mContext;
     private Spinner spnProblemType;
     private EditText edtDescription;
@@ -59,7 +61,7 @@ public class ComplainActivity extends AppCompatActivity {
     private int GALLERY = 1, CAMERACODE = 2, SHARECODE = 3;
     private Bitmap FixBitmap;
     byte[] byteArray;
-    String ConvertImage;
+    String cImage1 = "", cImage2 = "", cImage3 = "";
     ByteArrayOutputStream byteArrayOutputStream;
 
     @Override
@@ -76,6 +78,8 @@ public class ComplainActivity extends AppCompatActivity {
         spnProblemType = findViewById(R.id.spnProblemType);
         edtDescription = findViewById(R.id.edtDescription);
         imgCapture = findViewById(R.id.imgCapture);
+        imgCapture2 = findViewById(R.id.imgCapture2);
+        imgCapture3 = findViewById(R.id.imgCapture3);
         imageViewLoading = findViewById(R.id.imageViewLoading);
 
         spnProblemType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -92,7 +96,7 @@ public class ComplainActivity extends AppCompatActivity {
     }
 
     public void openVoice(View view) {
-        askSpeechInput("");
+        askSpeechInput("আপনার অভিযোগ টি বিস্তারিত বলুন ");
 
     }
 
@@ -113,14 +117,24 @@ public class ComplainActivity extends AppCompatActivity {
     void convrtImage() {
         FixBitmap.compress(Bitmap.CompressFormat.JPEG, 40, byteArrayOutputStream);
         byteArray = byteArrayOutputStream.toByteArray();
-        ConvertImage = Base64.encodeToString(byteArray, Base64.DEFAULT);
+        cImage1 = Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
+    void convrtImage2() {
+        FixBitmap.compress(Bitmap.CompressFormat.JPEG, 40, byteArrayOutputStream);
+        byteArray = byteArrayOutputStream.toByteArray();
+        cImage2 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+    }
+
+    void convrtImage3() {
+        FixBitmap.compress(Bitmap.CompressFormat.JPEG, 40, byteArrayOutputStream);
+        byteArray = byteArrayOutputStream.toByteArray();
+        cImage3 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+    }
 
     public void choosePhotoFromGallary() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
         startActivityForResult(galleryIntent, GALLERY);
     }
 
@@ -134,11 +148,31 @@ public class ComplainActivity extends AppCompatActivity {
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
         } else {
+            IMAGE_CODE = 10;
             showPictureDialog();
         }
 
     }
 
+    public void btnChooseFile2(View view) {
+        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+        } else {
+            IMAGE_CODE = 11;
+            showPictureDialog();
+        }
+
+    }
+
+    public void btnChooseFile3(View view) {
+        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+        } else {
+            IMAGE_CODE = 12;
+            showPictureDialog();
+        }
+
+    }
 
     private void showPictureDialog() {
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
@@ -175,9 +209,20 @@ public class ComplainActivity extends AppCompatActivity {
                 Uri contentURI = data.getData();
                 try {
                     FixBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
-                    imgCapture.setImageBitmap(FixBitmap);
-                    imgCapture.setVisibility(View.VISIBLE);
-                    convrtImage();
+
+                    if (IMAGE_CODE == 10) {
+                        imgCapture.setImageBitmap(FixBitmap);
+                        imgCapture.setVisibility(View.VISIBLE);
+                        convrtImage();
+                    } else if (IMAGE_CODE == 11) {
+                        imgCapture2.setImageBitmap(FixBitmap);
+                        imgCapture2.setVisibility(View.VISIBLE);
+                        convrtImage2();
+                    } else if (IMAGE_CODE == 12) {
+                        imgCapture3.setImageBitmap(FixBitmap);
+                        imgCapture3.setVisibility(View.VISIBLE);
+                        convrtImage3();
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -188,16 +233,26 @@ public class ComplainActivity extends AppCompatActivity {
         } else if (requestCode == CAMERACODE) {
 
             FixBitmap = (Bitmap) data.getExtras().get("data");
-            imgCapture.setImageBitmap(FixBitmap);
-            imgCapture.setVisibility(View.VISIBLE);
-            convrtImage();
+            if (IMAGE_CODE == 10) {
+                imgCapture.setImageBitmap(FixBitmap);
+                imgCapture.setVisibility(View.VISIBLE);
+                convrtImage();
+            }else if (IMAGE_CODE == 11) {
+                imgCapture2.setImageBitmap(FixBitmap);
+                imgCapture2.setVisibility(View.VISIBLE);
+                convrtImage2();
+            }else if (IMAGE_CODE == 12) {
+                imgCapture3.setImageBitmap(FixBitmap);
+                imgCapture3.setVisibility(View.VISIBLE);
+                convrtImage3();
+            }
         } else if (requestCode == REQ_CODE_SPEECH_INPUT) {
             if (null != data) {
                 ArrayList<String> res = data
                         .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 String currentString = res.get(0).trim();
-
-                edtDescription.setText(currentString);
+                String desc = edtDescription.getText().toString() + " ";
+                edtDescription.setText(desc.concat(currentString));
             }
         }
     }
@@ -208,7 +263,6 @@ public class ComplainActivity extends AppCompatActivity {
         super.onResume();
         if (locationTrack.canGetLocation()) {
 
-
             double longitude = locationTrack.getLongitude();
             double latitude = locationTrack.getLatitude();
             Log.i(GlobalData.TAG, "Lat: " + latitude);
@@ -218,7 +272,6 @@ public class ComplainActivity extends AppCompatActivity {
             new DataPreference(mContext).setLongitude(longitude + "");
             //  Toast.makeText(getApplicationContext(), "Longitude:" + Double.toString(longitude) + "\nLatitude:" + Double.toString(latitude), Toast.LENGTH_SHORT).show();
         } else {
-
             locationTrack.showSettingsAlert();
         }
 
@@ -289,23 +342,30 @@ public class ComplainActivity extends AppCompatActivity {
                 params.put("Number2", new DataPreference(mContext).getSimTwoNumber());
                 params.put("DeviceId", new DataPreference(mContext).getToken());
                 params.put("Complaint", edtDescription.getText().toString());
-                params.put("ImageData", ConvertImage);
+                params.put("ImageData", cImage1);
+                params.put("ImageData2", cImage2);
+                params.put("ImageData3", cImage3);
                 params.put("Latitude", new DataPreference(mContext).getLatitude());
                 params.put("Longitude", new DataPreference(mContext).getLongitude());
                 params.put("ComplaintAddress", AddressLocation.getCompleteAddressString(mContext,Double.parseDouble(new DataPreference(mContext).getLatitude()),Double.parseDouble(new DataPreference(mContext).getLongitude())));
 
-                Log.i(GlobalData.TAG, params.toString());
+               // Log.i(GlobalData.TAG, params.toString());
                 return params;
             }
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
+        int socketTimeout = 30000;//30 seconds - change to what you want
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        stringRequest.setRetryPolicy(policy);
         requestQueue.add(stringRequest);
     }
 
     void clear() {
+
         edtDescription.setText("");
         imgCapture.setVisibility(View.GONE);
+
     }
 
     public void openHistory(View view) {

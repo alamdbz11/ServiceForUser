@@ -74,30 +74,49 @@
                 android:orientation="vertical"
                 android:visibility="visible">
 
-                <EditText
-                    android:id="@+id/edtComplainerName"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginTop="@dimen/dm_20"
-                    android:background="@drawable/rounder_edittext"
-                    android:gravity="center"
-                    android:hint="@string/name"
-                    android:inputType="textPersonName"
-                    android:layoutDirection="ltr"
-                    android:padding="@dimen/dm_15"
-                    android:singleLine="true"
-                    android:text=""
-                    android:textSize="@dimen/dm_17"
-                    android:visibility="visible" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dm_20">
 
+
+                    <EditText
+                        android:id="@+id/edtComplainerName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+
+                        android:background="@drawable/rounder_edittext"
+                        android:gravity="center"
+                        android:hint="@string/name"
+                        android:inputType="textPersonName"
+                        android:layoutDirection="ltr"
+                        android:padding="@dimen/dm_15"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textSize="@dimen/dm_17"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:onClick="voiceName"
+                        android:background="@drawable/rounder_edittext"
+                        android:src="@drawable/ic_voice" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dm_20">
 
                 <EditText
                     android:id="@+id/edtComplainerAddress"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginTop="@dimen/dm_30"
                     android:background="@drawable/rounder_edittext"
                     android:gravity="center"
                     android:hint="@string/address"
@@ -109,7 +128,15 @@
                     android:textSize="@dimen/dm_17"
                     android:visibility="visible" />
 
-
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:onClick="voiceAddress"
+                        android:background="@drawable/rounder_edittext"
+                        android:src="@drawable/ic_voice" />
+                </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -2,11 +2,13 @@ package com.alam.serviceforuser;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +30,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,9 +46,33 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+        setToolBar();
         uiInitialization();
+        getComplaint();
     }
 
+    private void setToolBar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setVisibility(View.VISIBLE);
+        //setting the title
+        toolbar.setTitle(getResources().getString(R.string.ticket_list));
+        //placing toolbar in place of actionbar
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            // finish the activity
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void uiInitialization() {
         mContext = this;
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewMembers);
@@ -81,10 +109,16 @@ public class HistoryActivity extends AppCompatActivity {
                         String Complaint = c.getString("Complaint");
                         String EntryDate = c.getString("EntryDate");
                         String Status = c.getString("Status");
+                        String UrlPhoto = c.getString("UrlPhoto");
+                        String UrlPhoto2 = c.getString("UrlPhoto2");
+                        String UrlPhoto3 = c.getString("UrlPhoto3");
+
+                        NumberFormat nf = new DecimalFormat("000000");
+                        String comId = nf.format(Long.parseLong(Id));
 
                         if (Name.equals("null"))
                             Name = "";
-                        complaints.add(new Complaint(Id, ComplainType, Name, Complaint, EntryDate, Status));
+                        complaints.add(new Complaint(comId, ComplainType, Name, "", "", Complaint, EntryDate, Status, UrlPhoto, UrlPhoto2, UrlPhoto3));
 
                     }
                     if(complaints.size()>0){
@@ -127,7 +161,7 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getComplaint();
+
     }
 
     public void back(View view) {

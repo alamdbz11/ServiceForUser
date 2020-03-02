@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dm_5"
     android:gravity="center_vertical"
-
-    android:background="@color/colorPrimary"
+    android:background="@color/app_bg"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -15,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:elevation="5dp"
+        app:cardUseCompatPadding="true"
         android:innerRadius="0dp"
         android:backgroundTint="@color/app_bg"
         android:shape="ring"
@@ -31,10 +31,36 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+android:visibility="gone"
+            android:orientation="vertical"
             android:gravity="center">
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+               >
 
+                <com.smarteist.autoimageslider.SliderView
+                    android:id="@+id/imageSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:sliderAnimationDuration="400"
+                    app:sliderAutoCycleDirection="back_and_forth"
+                    app:sliderAutoCycleEnabled="true"
+                    app:sliderCircularHandlerEnabled="true"
+                    app:sliderIndicatorAnimationDuration="400"
+                    app:sliderIndicatorGravity="center_horizontal|bottom"
+                    app:sliderIndicatorMargin="15dp"
+                    app:sliderIndicatorOrientation="horizontal"
+                    app:sliderIndicatorPadding="3dp"
+                    app:sliderIndicatorRadius="2dp"
+                    app:sliderIndicatorSelectedColor="#5A5A5A"
+                    app:sliderIndicatorUnselectedColor="#FFF"
+                    app:sliderScrollTimeInSec="1"
+                    app:sliderStartAutoCycle="true" />
+
+
+            </FrameLayout>
 
                 <ImageView
                     android:id="@+id/compliantPhoto"
@@ -42,6 +68,7 @@
                     android:layout_height="@dimen/dm_250"
                     android:layout_alignParentTop="true"
                    android:scaleType="fitXY"
+                    android:visibility="gone"
                     android:layout_centerHorizontal="true"
                     android:src="@drawable/placeholder" />
 
@@ -65,13 +92,14 @@
 
 
                 <TextView
-                    android:id="@+id/txtProblem"
+                    android:id="@+id/txtComId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="2dp"
                     android:layout_alignParentStart="true"
-                    android:text="Address"
-                    android:textSize="@dimen/dm_17" />
+                    android:text=""
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/dm_20" />
 
                 <TextView
                     android:id="@+id/txtStatus"
@@ -84,7 +112,14 @@
                     android:textSize="@dimen/dm_15"
                     android:visibility="visible" />
             </RelativeLayout>
-
+            <TextView
+                android:id="@+id/txtProblem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:layout_alignParentStart="true"
+                android:text="Address"
+                android:textSize="@dimen/dm_17" />
 
             <TextView
                 android:id="@+id/txtDescription"
@@ -92,15 +127,16 @@
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:padding="2dp"
+                android:visibility="gone"
                 android:text="Customer Name"
                 android:textSize="@dimen/dm_17" />
             <TextView
                 android:id="@+id/txtDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="start"
                 android:padding="2dp"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/gray"
                 android:text="Customer Name"
                 android:textSize="@dimen/dm_17" />
 
